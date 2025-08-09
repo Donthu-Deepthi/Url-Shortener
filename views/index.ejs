@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>URL Shrinker</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+    crossorigin="anonymous"
+  />
+  <style>
+    body {
+      background: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+      max-width: 900px;
+      background: #fff;
+      padding: 2.5rem 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    }
+    h1 {
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    form.my-4 {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    input[type="url"] {
+      flex: 1 1 350px;
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      border: 1.5px solid #ced4da;
+      transition: border-color 0.3s;
+    }
+    input[type="url"]:focus {
+      border-color: #198754;
+      outline: none;
+      box-shadow: 0 0 5px #198754;
+    }
+    button.btn-success {
+      padding: 0.6rem 1.6rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    button.btn-success:hover {
+      background-color: #157347;
+    }
+    table.table {
+      margin-top: 2rem;
+      border-collapse: separate;
+      border-spacing: 0 0.75rem;
+    }
+    table.table th {
+      background-color: transparent;
+      color: #34495e;
+      font-weight: 600;
+      font-size: 1rem;
+      border-bottom: none;
+      padding-bottom: 0.75rem;
+    }
+    table.table td {
+      background: #f8f9fa;
+      vertical-align: middle;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      color: #34495e;
+      transition: background-color 0.3s;
+    }
+    table.table tr:hover td {
+      background-color: #e2f0d9;
+    }
+    a {
+      color: #198754;
+      text-decoration: none;
+      font-weight: 500;
+      word-break: break-word;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    button.btn-danger {
+      font-size: 0.9rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    button.btn-danger:hover {
+      background-color: #bb2d3b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>URL Shortener</h1>
+    <form action="/shortUrls" method="POST" class="my-4">
+      <input
+        type="url"
+        placeholder="Enter your URL here..."
+        required
+        name="fullurl"
+        id="fullurl"
+        aria-label="Full URL"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+      <button class="btn btn-success" type="submit">Shrink</button>
+    </form>
+
+    <table class="table w-100">
+      <thead>
+        <tr>
+          <th scope="col">Full URL</th>
+          <th scope="col">Short URL</th>
+          <th scope="col">Clicks</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td>
+              <a href="<%= shortUrl.full %>" target="_blank" rel="noopener noreferrer">
+                <%= shortUrl.full %>
+              </a>
+            </td>
+            <td>
+              <a href="/<%= shortUrl.short %>" target="_blank" rel="noopener noreferrer">
+                <%= shortUrl.short %>
+              </a>
+            </td>
+            <td><%= shortUrl.clicks %></td>
+            <td>
+              <form
+                action="/shortUrls/<%= shortUrl._id %>?_method=DELETE"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this URL?');"
+              >
+                <button class="btn btn-danger btn-sm" type="submit">
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
