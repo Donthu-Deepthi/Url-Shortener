@@ -2,12 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const ShortUrl = require('./models/shortUrl')
 const methodOverride = require('method-override');
+require('dotenv').config();
 
 const app = express()
 
 app.use(methodOverride('_method'));
 
-mongoose.connect('mongodb://localhost/urlShortener')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
