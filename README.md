@@ -15,91 +15,43 @@ It demonstrates server-side rendering with EJS templates, database integration w
 
 ---
 
-## 📂 Project Structure
-
-├── models/ # Mongoose models for URLs
-├── views/ # EJS templates for UI
-├── server.js # Main application entry point
-├── package.json # Dependencies and scripts
-├── .gitignore # Ignored files
-└── README.md # Project documentation
-
-yaml
-Copy
-Edit
-
----
-
 ## 🛠 Installation & Setup
 
 1. **Clone the repository**
-```bash
 git clone https://github.com/Donthu-Deepthi/Url-Shortener.git
 cd Url-Shortener
-Install dependencies
 
-bash
-Copy
-Edit
+2. **Install Dependencies**
 npm install
-Create a .env file in the root directory and add:
 
-env
-Copy
-Edit
+3. **Create a .env file**
 MONGODB_URI=your_mongodb_connection_string
-PORT=3000
-Run the application
+PORT=5000
 
-bash
-Copy
-Edit
-npm start
-or
-
-bash
-Copy
-Edit
+4. **Run the application**
 node server.js
-🌐 Deployment
-This project can be deployed on:
 
+---
+🌐 **Deployment**
 Render
 
-Railway
-
-Cyclic
-
-Deployment Steps:
-
+---
+**Deployment Steps:**
 Push your project to GitHub.
-
 Connect your GitHub repo to your hosting platform.
-
 Set MONGODB_URI and PORT in the hosting platform’s environment variables.
-
 Deploy and get your live link.
 
-📦 Dependencies
+---
+📦 **Dependencies**
 express – Web framework for Node.js
-
 ejs – Templating engine
-
 mongoose – MongoDB ODM
-
 dotenv – Loads environment variables from .env
-
 shortid – Generates short unique IDs for URLs (if used)
 
-📷 Screenshots
-Add screenshots of your app UI here.
+---
 
-📜 License
-This project is licensed under the MIT License – feel free to use, modify, and share.
-
-👩‍💻 Author
+👩‍💻 **Author**
 Donthu Deepthi
-
-GitHub: @Donthu-Deepthi
-
 Repository: URL Shortener
