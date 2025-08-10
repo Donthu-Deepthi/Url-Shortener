@@ -18,17 +18,18 @@ It demonstrates server-side rendering with EJS templates, database integration w
 ## 🛠 Installation & Setup
 
 1. **Clone the repository**
+```bash
 git clone https://github.com/Donthu-Deepthi/Url-Shortener.git
 cd Url-Shortener
 
-2. **Install Dependencies**
+3. **Install Dependencies**
 npm install
 
-3. **Create a .env file**
+4. **Create a .env file**
 MONGODB_URI=your_mongodb_connection_string
 PORT=5000
 
-4. **Run the application**
+5. **Run the application**
 node server.js
 
 ---
