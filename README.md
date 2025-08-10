@@ -21,16 +21,23 @@ It demonstrates server-side rendering with EJS templates, database integration w
 ```bash
 git clone https://github.com/Donthu-Deepthi/Url-Shortener.git
 cd Url-Shortener
+```
 
-3. **Install Dependencies**
+2. **Install Dependencies**
+```bash
 npm install
+```
 
-4. **Create a .env file**
+3. **Create a .env file**
+```bash
 MONGODB_URI=your_mongodb_connection_string
 PORT=5000
+```
 
-5. **Run the application**
+4. **Run the application**
+```bash
 node server.js
+```
 
 ---
 🌐 **Deployment**
@@ -38,21 +45,23 @@ Render
 
 ---
 **Deployment Steps:**
-Push your project to GitHub.
-Connect your GitHub repo to your hosting platform.
-Set MONGODB_URI and PORT in the hosting platform’s environment variables.
-Deploy and get your live link.
+
+- Push your project to GitHub.
+- Connect your GitHub repo to your hosting platform.
+- Set `MONGODB_URI` and `PORT` in the hosting platform’s environment variables.
+- Deploy and get your live link.
 
 ---
 📦 **Dependencies**
-express – Web framework for Node.js
-ejs – Templating engine
-mongoose – MongoDB ODM
-dotenv – Loads environment variables from .env
-shortid – Generates short unique IDs for URLs (if used)
+
+- express – Web framework for Node.js  
+- ejs – Templating engine  
+- mongoose – MongoDB ODM  
+- dotenv – Loads environment variables from .env  
+- shortid – Generates short unique IDs for URLs (if used)  
 
 ---
 
 👩‍💻 **Author**
-Donthu Deepthi
-Repository: URL Shortener
+- Donthu Deepthi
+- Repository: URL Shortener
