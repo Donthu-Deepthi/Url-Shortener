@@ -25,10 +25,10 @@ app.post('/shortUrls', async(req,res) => {
     res.redirect('/')
 })
 
-app.delete('/shortUrls/:id', async (req, res) => {
-  await ShortUrl.findByIdAndDelete(req.params.id);
-  res.redirect('/');
-});
+// app.delete('/shortUrls/:id', async (req, res) => {
+//   await ShortUrl.findByIdAndDelete(req.params.id);
+//   res.redirect('/');
+// });
 
 
 app.get('/:shortUrl',async (req,res) => {
