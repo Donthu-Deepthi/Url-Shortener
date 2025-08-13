@@ -1,42 +1,60 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const ShortUrl = require('./models/shortUrl')
+const express = require('express');
+const mongoose = require('mongoose');
+const ShortUrl = require('./models/shortUrl');
 const methodOverride = require('method-override');
+const cors = require('cors');
 require('dotenv').config();
 
-const app = express()
+const app = express();
 
+// Middleware
 app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
+// Allow frontend (Vercel) to call backend
+app.use(cors());
+
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-app.set('view engine','ejs')
-app.use(express.urlencoded({extended: false}))
+// API: Get all short URLs
+app.get('/shortUrls', async (req, res) => {
+  try {
+    const shortUrls = await ShortUrl.find();
+    res.json(shortUrls);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch URLs' });
+  }
+});
 
-app.get('/',async (req,res) => {
-    const shortUrls = await ShortUrl.find()
-    res.render('index',{ shortUrls: shortUrls})
-})
+// API: Create a short URL
+app.post('/shortUrls', async (req, res) => {
+  try {
+    await ShortUrl.create({ full: req.body.fullurl });
+    res.json({ success: true, message: 'Short URL created' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create short URL' });
+  }
+});
 
-app.post('/shortUrls', async(req,res) => {
-    await ShortUrl.create({full: req.body.fullurl})
-    res.redirect('/')
-})
+// Redirect from short URL to full URL
+app.get('/:shortUrl', async (req, res) => {
+  try {
+    const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
+    if (!shortUrl) return res.sendStatus(404);
 
-// app.delete('/shortUrls/:id', async (req, res) => {
-//   await ShortUrl.findByIdAndDelete(req.params.id);
-//   res.redirect('/');
-// });
+    shortUrl.clicks++;
+    await shortUrl.save();
+    res.redirect(shortUrl.full);
+  } catch (err) {
+    res.status(500).json({ error: 'Error processing redirect' });
+  }
+});
 
-
-app.get('/:shortUrl',async (req,res) => {
-    const shortUrl = await ShortUrl.findOne({short: req.params.shortUrl})
-    if(shortUrl == null) return res.sendStatus(404)
-    shortUrl.clicks++
-    shortUrl.save()
-    res.redirect(shortUrl.full)
-})
-
-app.listen(process.env.PORT || 5000);
+// Start server
+app.listen(process.env.PORT || 5000, () => {
+  console.log('Server is running...');
+});
